@@ -9,113 +9,102 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
         }
         header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
+            padding: 20px;
             text-align: center;
+            background-color: #f4f4f4;
+            transition: background-color 0.3s;
         }
-        nav {
+        .dark-mode header {
+            background-color: #1e1e1e;
+        }
+        .toggle-container {
             display: flex;
             justify-content: center;
-            background-color: #444;
+            align-items: center;
+            margin-top: 10px;
         }
-        nav a {
-            color: #fff;
-            padding: 14px 20px;
-            text-decoration: none;
-            text-align: center;
-        }
-        nav a:hover {
-            background-color: #555;
-        }
-        .container {
+        .skills {
             padding: 20px;
         }
-        .profile {
-            text-align: center;
+        .skill {
+            margin-bottom: 15px;
         }
-        .profile img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
+        .skill-name {
+            font-weight: bold;
         }
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .contact-form input, .contact-form textarea {
+        .progress-bar {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
+            background-color: #e0e0e0;
             border-radius: 5px;
+            overflow: hidden;
         }
-        .contact-form button {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .contact-form button:hover {
-            background-color: #555;
-        }
-        @media (max-width: 600px) {
-            nav {
-                flex-direction: column;
-            }
+        .progress {
+            height: 20px;
+            background-color: #76c7c0;
+            width: 0;
+            transition: width 1s ease-in-out;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>My Portfolio</h1>
+        <div class="toggle-container">
+            <label for="darkModeToggle">Dark Mode:</label>
+            <input type="checkbox" id="darkModeToggle">
+        </div>
     </header>
-    <nav>
-        <a href="#profile">Profile</a>
-        <a href="#bio">Bio</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    <div class="container">
-        <section id="profile" class="profile">
-            <img src="assets/profile.png" alt="Profile Image" id="profileImage">
-            <h2 id="name">John Doe</h2>
+    <main>
+        <section class="skills">
+            <h2>Skills</h2>
+            <div class="skill">
+                <div class="skill-name">HTML</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 90%;"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <div class="skill-name">CSS</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 80%;"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <div class="skill-name">JavaScript</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 75%;"></div>
+                </div>
+            </div>
         </section>
-        <section id="bio">
-            <h2>Bio</h2>
-            <p id="bioText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
-        </section>
-        <section id="contact">
-            <h2>Contact</h2>
-            <form class="contact-form" id="contactForm">
-                <input type="text" id="nameInput" placeholder="Your Name" required>
-                <input type="email" id="emailInput" placeholder="Your Email" required>
-                <textarea id="messageInput" placeholder="Your Message" rows="5" required></textarea>
-                <button type="submit">Send Message</button>
-                <p id="formFeedback"></p>
-            </form>
-        </section>
-    </div>
+    </main>
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('nameInput').value.trim();
-            const email = document.getElementById('emailInput').value.trim();
-            const message = document.getElementById('messageInput').value.trim();
-            
-            if (name && email && message) {
-                document.getElementById('formFeedback').textContent = 'Thank you for your message!';
-                document.getElementById('formFeedback').style.color = 'green';
-                this.reset();
-            } else {
-                document.getElementById('formFeedback').textContent = 'Please fill out all fields.';
-                document.getElementById('formFeedback').style.color = 'red';
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+
+            const applyTheme = (isDark) => {
+                if (isDark) {
+                    body.classList.add('dark-mode');
+                } else {
+                    body.classList.remove('dark-mode');
+                }
+                localStorage.setItem('darkMode', isDark);
+            };
+
+            darkModeToggle.addEventListener('change', () => {
+                applyTheme(darkModeToggle.checked);
+            });
+
+            const savedTheme = localStorage.getItem('darkMode') === 'true';
+            darkModeToggle.checked = savedTheme;
+            applyTheme(savedTheme);
         });
     </script>
 </body>
