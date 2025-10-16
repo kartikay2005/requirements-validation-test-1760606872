@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+        }
+        nav a {
+            color: #fff;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .container {
+            padding: 20px;
+        }
+        .profile {
+            text-align: center;
+        }
+        .profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #555;
+        }
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Portfolio</h1>
+    </header>
+    <nav>
+        <a href="#profile">Profile</a>
+        <a href="#bio">Bio</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div class="container">
+        <section id="profile" class="profile">
+            <img src="assets/profile.png" alt="Profile Image" id="profileImage">
+            <h2 id="name">John Doe</h2>
+        </section>
+        <section id="bio">
+            <h2>Bio</h2>
+            <p id="bioText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <form class="contact-form" id="contactForm">
+                <input type="text" id="nameInput" placeholder="Your Name" required>
+                <input type="email" id="emailInput" placeholder="Your Email" required>
+                <textarea id="messageInput" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+                <p id="formFeedback"></p>
+            </form>
+        </section>
+    </div>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('nameInput').value.trim();
+            const email = document.getElementById('emailInput').value.trim();
+            const message = document.getElementById('messageInput').value.trim();
+            
+            if (name && email && message) {
+                document.getElementById('formFeedback').textContent = 'Thank you for your message!';
+                document.getElementById('formFeedback').style.color = 'green';
+                this.reset();
+            } else {
+                document.getElementById('formFeedback').textContent = 'Please fill out all fields.';
+                document.getElementById('formFeedback').style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
